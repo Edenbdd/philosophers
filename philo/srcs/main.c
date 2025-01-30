@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:26:46 by aubertra          #+#    #+#             */
-/*   Updated: 2025/01/30 15:55:46 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:38:06 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@ int main(int argc, char **argv)
 
 	if (init_data(&data, argc, argv))
 		return (-1);
+	dprintf(2, "Parsing done, all good!\n");
     return (0);
 }

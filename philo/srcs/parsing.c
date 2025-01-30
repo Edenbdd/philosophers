@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:56:52 by aubertra          #+#    #+#             */
-/*   Updated: 2025/01/30 15:32:29 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:44:01 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int only_digit_sign(char *arg)
     pos = 0;
     while (arg[pos])
     {
-        if (arg[pos] <= '0' && arg[pos] >= '9'
+        if ((arg[pos] < '0' || arg[pos] > '9')
             && arg[pos] != '+' && !is_space(arg[pos]))
             return (0);
         pos++;
@@ -47,6 +47,8 @@ long long	ft_atoll(char *str)
 		pos++;
 	if (str[pos] == '+')
 		pos++;
+    while (str[pos] == '0')
+    {    pos++;}
 	while (str[pos] && is_space(str[pos]))
 		pos++;
 	while (str[pos] && !is_space(str[pos]))
@@ -77,9 +79,15 @@ int parsing(char *arg)
     long long   lnb;
     
     if (!only_digit_sign(arg))
+    {
+        dprintf(2, "only digit issue\n");
         return (-1);
+    }
     lnb = ft_atoll(arg);
 	if (too_big(lnb))
+    {
+        dprintf(2, "too big issue\n");
 	   	return (-1);
+    }
     return ((int)lnb);
 }
