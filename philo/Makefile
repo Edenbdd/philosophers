@@ -6,7 +6,7 @@
 #    By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/29 15:29:44 by aubertra          #+#    #+#              #
-#    Updated: 2025/01/29 16:36:26 by aubertra         ###   ########.fr        #
+#    Updated: 2025/01/30 15:58:11 by aubertra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,9 @@ CPP = cc
 FLAGS = -Wall -Wextra -Werror -g3 -pthread
 
 NAME = philo
-SRCS =  philo.c\
+SRCS =  main.c\
+		parsing.c\
+		init_free.c\
 
 OBJS = $(addprefix objs/,$(SRCS:.c=.o))
 
