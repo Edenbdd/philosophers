@@ -6,7 +6,7 @@
 #    By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/29 15:29:44 by aubertra          #+#    #+#              #
-#    Updated: 2025/01/30 16:44:13 by aubertra         ###   ########.fr        #
+#    Updated: 2025/01/30 16:57:31 by aubertra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ FLAGS = -Wall -Wextra -Werror -g3 -pthread
 NAME = philo
 SRCS =  main.c\
 		parsing.c\
+		routine.c\
+		monitor.c\
 		init_free.c\
 
 OBJS = $(addprefix objs/,$(SRCS:.c=.o))

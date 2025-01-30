@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:27:10 by aubertra          #+#    #+#             */
-/*   Updated: 2025/01/30 15:56:57 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/01/30 17:11:43 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_data t_data;
 struct	s_data
 {
 	pthread_t		*philo;
+	pthread_t		butler;
 	int				number_of_philo;
     int				time_to_die;
     int				time_to_eat;
@@ -48,13 +49,15 @@ long long		ft_atoll(char *str);
 int				too_big(long long nb);
 
 /*ROUTINE.C*/
+void			*routine(void *data);
 
 
 /*INIT.C*/
 int				wrong_arg_msg(void);
 int				init_data(t_data *data, int argc, char **argv);
 
-/*BUTLER.C*/
+/*MONITOR.C aka the butler*/
+void			*monitoring(void *data);
 
 
 #endif
