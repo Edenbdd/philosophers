@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:49:45 by aubertra          #+#    #+#             */
-/*   Updated: 2025/01/31 14:22:24 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:41:09 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int free_destroy_all(t_data *data)
     i = 0;
     while (i < data->number_of_philo)
     {
-        current = &data->philo[i];
+        current = &(data->philo[i]);
         free(&(current->philo));
         i++;
     }

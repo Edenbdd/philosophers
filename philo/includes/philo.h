@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:27:10 by aubertra          #+#    #+#             */
-/*   Updated: 2025/01/31 15:22:52 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:29:48 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ struct	s_philo
 {
 	pthread_t		philo;
 	int				philo_id;
-	// int				timestamp_last_meal;
+	int				timestamp_last_meal;
 	int				birth_time;
 	int				time_to_die;
     int				time_to_eat;
 	int				time_to_sleep;
-	int				nb_of_meals;
-	int				*dead_flag;
-	int				*end_flag;
+	int				max_nb_of_meals;
+	int				meals_eaten;
+	int				end_flag;
 	pthread_mutex_t	*m_printf;
 };
 
@@ -47,8 +47,7 @@ struct	s_data
     int				time_to_die;
     int				time_to_eat;
 	int				time_to_sleep;
-	int				nb_of_meals;
-	int				dead_flag;
+	int				max_nb_of_meals;
 	int				end_flag;
 	pthread_mutex_t	*m_printf;
 };
