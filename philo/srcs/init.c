@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:56:07 by aubertra          #+#    #+#             */
-/*   Updated: 2025/01/31 14:21:55 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:23:28 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	init_philo(t_data *data)
 		current_philo = &data->philo[i];
 		current_philo->philo = (pthread_t)malloc(sizeof(pthread_t));
 		current_philo->philo_id = i + 1;
-//		birth_time = get_exact_time(); //A CODER
+		current_philo->birth_time = get_exact_time();
     	current_philo->time_to_die = data->time_to_die;
     	current_philo->time_to_eat = data->time_to_eat;
 		current_philo->time_to_sleep = data->time_to_sleep;
@@ -88,7 +88,7 @@ int	thread_setup(t_data *data)
 	while (i < data->number_of_philo)
 	{
 		current_philo = &(data->philo[i]);
-		dprintf(2, "in first while thread_setup i is %d\n", i);
+		dprintf(2, "in first while thread_setup i is %d\n", i + 1);
 		if (pthread_create(&(current_philo->philo), NULL, &routine, current_philo))
 			return (-1);
 		i++;
@@ -97,7 +97,7 @@ int	thread_setup(t_data *data)
 	while (i < data->number_of_philo)
 	{
 		current_philo = &data->philo[i];
-		dprintf(2, "in sec while thread_setup i is %d\n", i);
+		dprintf(2, "in sec while thread_setup i is %d\n", i + 1);
 		pthread_join(current_philo->philo, NULL);
 		i++;
 	}

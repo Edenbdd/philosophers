@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:27:10 by aubertra          #+#    #+#             */
-/*   Updated: 2025/01/31 14:20:31 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:22:52 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ struct	s_philo
 {
 	pthread_t		philo;
 	int				philo_id;
+	// int				timestamp_last_meal;
 	int				birth_time;
 	int				time_to_die;
     int				time_to_eat;
@@ -60,8 +61,10 @@ long long		ft_atoll(char *str);
 int				too_big(long long nb);
 
 /*ROUTINE.C*/
-// int				get_exact_time(void);
-// int				ft_usleep(int time_to_wait);
+int				get_exact_time(void);
+int				ft_usleep(int time_to_wait);
+int				print_formatter(char *str, t_philo *curr);
+int				eating(t_philo *curr);
 void			*routine(void *data);
 
 
@@ -74,7 +77,6 @@ int				thread_setup(t_data *data);
 
 /*FREE.C*/
 int				destroy_mutex(t_data *data);
-int				free_data(t_data *data);
 int				free_destroy_all(t_data *data);
 
 /*MONITOR.C aka the butler*/
