@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:27:10 by aubertra          #+#    #+#             */
-/*   Updated: 2025/01/31 11:46:28 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:04:15 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,12 @@ int				too_big(long long nb);
 void			*routine(void *data);
 
 
-/*INIT.C*/
+/*INIT_FREE.C*/
 int				wrong_arg_msg(void);
 int				init_data(t_data *data, int argc, char **argv);
 int				init_mutex(t_data *data);
+int				free_mutex(t_data *data);
+int				free_data(t_data *data);
 
 
 /*MONITOR.C aka the butler*/

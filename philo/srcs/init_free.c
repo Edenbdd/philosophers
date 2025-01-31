@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:56:07 by aubertra          #+#    #+#             */
-/*   Updated: 2025/01/31 11:48:44 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:06:52 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,38 @@ int	init_mutex(t_data *data)
 		return (-1);
 	if (pthread_mutex_init(data->m_think, NULL))
 		return (-1);
+	return (0);
+}
+
+int	free_mutex(t_data *data)
+{
+	if (pthread_mutex_destroy(data->m_eat))
+		return (-1);
+	if (pthread_mutex_destroy(data->m_right_forks))
+		return (-1);
+	if (pthread_mutex_destroy(data->m_left_forks))
+		return (-1);
+	if (pthread_mutex_destroy(data->m_sleep))
+		return (-1);
+	if (pthread_mutex_destroy(data->m_think))
+		return (-1);
+	return (0);
+}
+
+int	free_data(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->philo[i])
+	{
+		free((void *)data->philo[i]);
+		i++;
+	}
+	free(data->m_right_forks);
+	free(data->m_left_forks);
+	free(data->m_eat);
+	free(data->m_sleep);
+	free(data->m_think);
 	return (0);
 }

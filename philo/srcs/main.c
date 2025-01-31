@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:26:46 by aubertra          #+#    #+#             */
-/*   Updated: 2025/01/31 11:46:34 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:03:04 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ int main(int argc, char **argv)
 	}
 	pthread_create(&data.butler, NULL, &monitoring, &data);
 	pthread_join(data.butler, NULL);
+	if (free_mutex(&data))
+		return (-1);
+	dprintf(2, "Mutex freed!\n");
 	dprintf(2, "Program ended sucessfully\n");
     return (0);
 }
