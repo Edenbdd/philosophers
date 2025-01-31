@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_free.c                                        :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:56:07 by aubertra          #+#    #+#             */
-/*   Updated: 2025/01/31 12:06:52 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:21:55 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,60 +49,67 @@ int	init_data(t_data *data, int argc, char **argv)
 		return (wrong_arg_msg());
 	data->dead_flag = 0;
 	data->end_flag = 0;
-	data->philo = (pthread_t *)malloc(sizeof(pthread_t)
+	data->philo = (t_philo *)malloc(sizeof(t_philo)
 		* data->number_of_philo);
-	data->m_right_forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	data->m_left_forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	data->m_eat = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	data->m_sleep = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	data->m_think = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	data->m_printf = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	return (0);
+}
+
+int	init_philo(t_data *data)
+{
+	int		i;
+	t_philo	*current_philo;
+
+	i = 0;
+	while (i < data->number_of_philo)
+	{
+		current_philo = &data->philo[i];
+		current_philo->philo = (pthread_t)malloc(sizeof(pthread_t));
+		current_philo->philo_id = i + 1;
+//		birth_time = get_exact_time(); //A CODER
+    	current_philo->time_to_die = data->time_to_die;
+    	current_philo->time_to_eat = data->time_to_eat;
+		current_philo->time_to_sleep = data->time_to_sleep;
+		current_philo->nb_of_meals = data->nb_of_meals;
+		current_philo->dead_flag = &data->dead_flag;
+		current_philo->end_flag = &data->end_flag;
+		current_philo->m_printf = data->m_printf;
+		i++;
+	}
+	return (0);
+}
+
+int	thread_setup(t_data *data)
+{
+	int		i;
+	t_philo	*current_philo;
+
+	i = 0;
+	while (i < data->number_of_philo)
+	{
+		current_philo = &(data->philo[i]);
+		dprintf(2, "in first while thread_setup i is %d\n", i);
+		if (pthread_create(&(current_philo->philo), NULL, &routine, current_philo))
+			return (-1);
+		i++;
+	}
+	i = 0;
+	while (i < data->number_of_philo)
+	{
+		current_philo = &data->philo[i];
+		dprintf(2, "in sec while thread_setup i is %d\n", i);
+		pthread_join(current_philo->philo, NULL);
+		i++;
+	}
+	pthread_create(&data->butler, NULL, &monitoring, &data);
+	pthread_join(data->butler, NULL);
 	return (0);
 }
 
 int	init_mutex(t_data *data)
 {
-	if (pthread_mutex_init(data->m_eat, NULL))
-		return (-1);
-	if (pthread_mutex_init(data->m_right_forks, NULL))
-		return (-1);
-	if (pthread_mutex_init(data->m_left_forks, NULL))
-		return (-1);
-	if (pthread_mutex_init(data->m_sleep, NULL))
-		return (-1);
-	if (pthread_mutex_init(data->m_think, NULL))
+	if (pthread_mutex_init(data->m_printf, NULL))
 		return (-1);
 	return (0);
 }
 
-int	free_mutex(t_data *data)
-{
-	if (pthread_mutex_destroy(data->m_eat))
-		return (-1);
-	if (pthread_mutex_destroy(data->m_right_forks))
-		return (-1);
-	if (pthread_mutex_destroy(data->m_left_forks))
-		return (-1);
-	if (pthread_mutex_destroy(data->m_sleep))
-		return (-1);
-	if (pthread_mutex_destroy(data->m_think))
-		return (-1);
-	return (0);
-}
-
-int	free_data(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (data->philo[i])
-	{
-		free((void *)data->philo[i]);
-		i++;
-	}
-	free(data->m_right_forks);
-	free(data->m_left_forks);
-	free(data->m_eat);
-	free(data->m_sleep);
-	free(data->m_think);
-	return (0);
-}
