@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:27:10 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/04 10:15:19 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:59:52 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ struct	s_philo
 	int				time_to_sleep;
 	int				max_nb_of_meals;
 	int				meals_eaten;
-	int				end_flag;
+	int				*end_flag;
 	pthread_mutex_t	*m_printf;
 };
 
@@ -60,15 +60,11 @@ long long		ft_atoll(char *str);
 int				too_big(long long nb);
 
 /*ROUTINE.C*/
-int				get_exact_time(void);
-int				ft_usleep(int time_to_wait);
-int				print_formatter(char *str, t_philo *curr);
 int				eating(t_philo *curr);
 void			*routine(void *data);
 
 
 /*INIT.C*/
-int				wrong_arg_msg(void);
 int				init_data(t_data *data, int argc, char **argv);
 int				init_mutex(t_data *data);
 int				init_philo(t_data *data);
@@ -81,5 +77,10 @@ int				free_destroy_all(t_data *data);
 /*MONITOR.C aka the butler*/
 void			*monitoring(void *data);
 
+/*UTILS.C*/
+int				get_exact_time(void);
+int				ft_usleep(int time_to_wait, t_philo *curr);
+int				print_formatter(char *str, t_philo *curr);
+int				wrong_arg_msg(void);
 
 #endif

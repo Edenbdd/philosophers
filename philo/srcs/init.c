@@ -6,29 +6,11 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:56:07 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/04 10:30:10 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:58:46 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	wrong_arg_msg(void)
-{
-	char	*msg;
-	int		len;
-
-	msg = "Wrong arguments.\nExpected input:\n(positive int only)\n\
-			unsigned in number_of_philosophers\n\
-			time_to_die\n\
-			time_to_eat\n\
-			time_to_sleep\n\
-			optional: number_of_times_each_philosopher_must_eat\n";
-	len = 0;
-	while (msg[len])
-		len++;
-	write(STDERR_FILENO, msg, len);
-	return (-1);
-}
 
 int	init_data(t_data *data, int argc, char **argv)
 {
@@ -71,7 +53,7 @@ int	init_philo(t_data *data)
     	current_philo->time_to_eat = data->time_to_eat;
 		current_philo->time_to_sleep = data->time_to_sleep;
 		current_philo->max_nb_of_meals = data->max_nb_of_meals;
-		current_philo->end_flag = data->end_flag;
+		current_philo->end_flag = &(data->end_flag);
 		current_philo->m_printf = data->m_printf;
 		i++;
 	}
@@ -99,8 +81,8 @@ int	thread_setup(t_data *data)
 		dprintf(2, "in sec while thread_setup i is %d\n", i + 1);
 		current_philo = &(data->philo[i]);
 		pthread_join(current_philo->philo, NULL);
-		i++;
 		dprintf(2, "join of %d done\n", i + 1);
+		i++;
 	}
 	dprintf(2, "join all done\n");
 	pthread_join(data->butler, NULL);

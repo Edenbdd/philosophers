@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:57:43 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/04 10:21:07 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:34:16 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	*monitoring(void *data)
             count++ ;
         }
         if (count  != 0 && max_reached == count)
+        {
+            dprintf(STDERR_FILENO, "end flag raised\n");
             monitor->end_flag = 1;
+        }
         count  = 0;
         while (count  < monitor->number_of_philo)
         {
