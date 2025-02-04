@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:56:07 by aubertra          #+#    #+#             */
-/*   Updated: 2025/01/31 16:55:21 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:30:10 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	init_data(t_data *data, int argc, char **argv)
 	if (argc != 5 && argc != 6)
 		return (wrong_arg_msg());
 	data->number_of_philo = parsing(argv[1]);
-	dprintf(2, "nb of philo is %d\n", data->number_of_philo);
     data->time_to_die = parsing(argv[2]);
     data->time_to_eat = parsing(argv[3]);
 	data->time_to_sleep = parsing (argv[4]);
@@ -43,7 +42,6 @@ int	init_data(t_data *data, int argc, char **argv)
 		data->max_nb_of_meals = parsing(argv[5]);
 	else
 		data->max_nb_of_meals = -2;
-	dprintf(2, "max nb of meals is %d\n", data->max_nb_of_meals);
 	if (data->number_of_philo == -1
 		|| data->time_to_die == -1
 		|| data->time_to_eat == -1
@@ -86,8 +84,7 @@ int	thread_setup(t_data *data)
 	t_philo	*current_philo;
 
 	i = 0;
-	pthread_create(&(data->butler), NULL, &monitoring, &data);
-	dprintf(2, "butler created\n");
+	pthread_create(&(data->butler), NULL, &monitoring, data);
 	while (i < data->number_of_philo)
 	{
 		current_philo = &(data->philo[i]);
@@ -99,10 +96,11 @@ int	thread_setup(t_data *data)
 	i = 0;
 	while (i < data->number_of_philo)
 	{
-		current_philo = &(data->philo[i]);
 		dprintf(2, "in sec while thread_setup i is %d\n", i + 1);
+		current_philo = &(data->philo[i]);
 		pthread_join(current_philo->philo, NULL);
 		i++;
+		dprintf(2, "join of %d done\n", i + 1);
 	}
 	dprintf(2, "join all done\n");
 	pthread_join(data->butler, NULL);
