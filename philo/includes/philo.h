@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:27:10 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/04 16:08:16 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:57:27 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void			*routine(void *data);
 int				init_data(t_data *data, int argc, char **argv);
 int				init_mutex(t_data *data);
 int				init_philo(t_data *data);
+int				philo_generator(t_data *data);
 int				thread_setup(t_data *data);
 
 /*FREE.C*/

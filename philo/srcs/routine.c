@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:53:49 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/04 16:52:04 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:00:00 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		eating(t_philo *curr)
 	int	right_fork_id;
 	int	left_fork_id;
 
-	dprintf(STDERR_FILENO, "%d ready to eat\n", curr->philo_id);
+	// dprintf(STDERR_FILENO, "%d ready to eat\n", curr->philo_id);
 	right_fork_id = curr->philo_id - 1;
 	// dprintf(STDERR_FILENO, RED_TEXT "for philo %d right fork is %d\n" RESET_TEXT, curr->philo_id, right_fork_id);
 	if (curr->philo_id == 1)
@@ -89,14 +89,14 @@ void	*routine(void *current_philo)
 			eating(curr);
 			sleeping(curr);
 			print_formatter("is thinking", curr);
-			ft_usleep(500, curr);
+			// ft_usleep(500, curr);
 		}
 		return (NULL);
 	}
 	while (!(*curr->end_flag)) //EVEN ROUTINE
 	{
 		print_formatter("is thinking", curr);
-		ft_usleep(100, curr); //see if necessary
+		// ft_usleep(100, curr); //see if necessary
 		eating(curr);
 		sleeping(curr);
 	}

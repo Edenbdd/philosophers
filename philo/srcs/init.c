@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:56:07 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/04 16:44:04 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:58:08 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,31 @@ int	init_philo(t_data *data)
 	}
 	return (0);
 }
+int	philo_generator(t_data *data)
+{
+	int		i;
+	t_philo	*current_philo;
+
+	i = 0;
+	while (i < data->number_of_philo)
+	{
+		current_philo = &(data->philo[i]);
+		// dprintf(2, "in first EVEN thread_setup i is %d\n", i + 1);
+		if (pthread_create(&(current_philo->philo), NULL, &routine, current_philo))
+			return (-1);
+		i += 2;
+	}
+	i = 1;
+	while (i < data->number_of_philo)
+	{
+		current_philo = &(data->philo[i]);
+		// dprintf(2, "in first UNEVEN thread_setup i is %d\n", i + 1);
+		if (pthread_create(&(current_philo->philo), NULL, &routine, current_philo))
+			return (-1);
+		i += 2;
+	}
+	return (0);
+}
 
 int	thread_setup(t_data *data)
 {
@@ -71,15 +96,8 @@ int	thread_setup(t_data *data)
 
 	if (data->number_of_philo > 1)
 		pthread_create(&(data->butler), NULL, &monitoring, data);
-	i = 0;
-	while (i < data->number_of_philo)
-	{
-		current_philo = &(data->philo[i]);
-		// dprintf(2, "in first while thread_setup i is %d\n", i + 1);
-		if (pthread_create(&(current_philo->philo), NULL, &routine, current_philo))
-			return (-1);
-		i++;
-	}
+	if (philo_generator(data))
+		return (-1);
 	i = 0;
 	while (i < data->number_of_philo)
 	{
