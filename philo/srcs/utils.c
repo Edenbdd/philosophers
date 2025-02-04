@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:56:53 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/04 10:58:38 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:40:07 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ int	ft_usleep(int time_to_wait, t_philo *curr)
 
 int	print_formatter(char *str, t_philo *curr)
 {
-	(void)str;
-	pthread_mutex_lock(curr->m_printf);
-    printf("%d %d %s\n", get_exact_time() - curr->birth_time, curr->philo_id, str);
-	pthread_mutex_unlock(curr->m_printf);
-	return (0);
+    if (!(*curr->end_flag))
+    {
+	    pthread_mutex_lock(curr->m_printf);
+        printf("%d %d %s\n", get_exact_time() - curr->birth_time, curr->philo_id, str);
+	    pthread_mutex_unlock(curr->m_printf);
+    }
+    return (0);
 }
 
 int	wrong_arg_msg(void)
