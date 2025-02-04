@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:56:07 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/04 10:58:46 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/04 12:44:59 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ int	init_data(t_data *data, int argc, char **argv)
 	data->philo = (t_philo *)malloc(sizeof(t_philo)
 		* data->number_of_philo);
 	data->m_printf = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (!data->m_printf)
+		return (-1);
+	if (pthread_mutex_init(data->m_printf, NULL))
+		return (-1);
 	return (0);
 }
 
@@ -52,9 +56,11 @@ int	init_philo(t_data *data)
     	current_philo->time_to_die = data->time_to_die;
     	current_philo->time_to_eat = data->time_to_eat;
 		current_philo->time_to_sleep = data->time_to_sleep;
+		current_philo->meals_eaten = 0;
 		current_philo->max_nb_of_meals = data->max_nb_of_meals;
 		current_philo->end_flag = &(data->end_flag);
 		current_philo->m_printf = data->m_printf;
+		init_mutex(current_philo);
 		i++;
 	}
 	return (0);
@@ -90,10 +96,17 @@ int	thread_setup(t_data *data)
 	return (0);
 }
 
-int	init_mutex(t_data *data)
+int	init_mutex(t_philo *current_philo)
 {
-	if (pthread_mutex_init(data->m_printf, NULL))
+	current_philo->m_right_fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (!current_philo->m_right_fork)
+		return (-1);
+	if (pthread_mutex_init(current_philo->m_right_fork, NULL))
+		return (-1);
+	current_philo->m_left_fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (!current_philo->m_left_fork)
+		return (-1);
+	if (pthread_mutex_init(current_philo->m_left_fork, NULL))
 		return (-1);
 	return (0);
 }
-

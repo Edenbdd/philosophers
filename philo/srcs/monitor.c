@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:57:43 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/04 10:34:16 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/04 12:45:20 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ void	*monitoring(void *data)
         count = 0;
         max_reached = 0;
         while (monitor->max_nb_of_meals != -2 
-                && count < monitor->number_of_philo)
+             && count < monitor->number_of_philo)
         {
             curr_philo = &(monitor->philo[count]);
+            dprintf(STDERR_FILENO, RED_TEXT "philo %d has eaten %d meals on %d\n"
+                RESET_TEXT, curr_philo->philo_id, curr_philo->meals_eaten, monitor->max_nb_of_meals);
             if (curr_philo->meals_eaten >= monitor->max_nb_of_meals)
                 max_reached++;
             count++ ;

@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:26:46 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/04 10:29:45 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/04 12:40:24 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ int main(int argc, char **argv)
 	if (init_data(&data, argc, argv))
 		return (-1);
 	dprintf(2, "Parsing done!\n");
-	if (init_mutex(&data))
-		return (-1);
-	dprintf(2, "Mutex set up!\n");
 	if (init_philo(&data))
 		return (-1);
 	dprintf(2, "t_philo set up!\n");

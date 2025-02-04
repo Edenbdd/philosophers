@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:27:10 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/04 10:59:52 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/04 12:42:25 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #ifndef PHILO_H
 
 # define PHILO_H
+
+#define RED_TEXT "\033[31m"
+#define RESET_TEXT "\033[0m"
 
 # include <unistd.h>
 # include <stdio.h>
@@ -37,6 +40,8 @@ struct	s_philo
 	int				meals_eaten;
 	int				*end_flag;
 	pthread_mutex_t	*m_printf;
+	pthread_mutex_t	*m_right_fork;
+	pthread_mutex_t	*m_left_fork;
 };
 
 struct	s_data
@@ -66,7 +71,7 @@ void			*routine(void *data);
 
 /*INIT.C*/
 int				init_data(t_data *data, int argc, char **argv);
-int				init_mutex(t_data *data);
+int				init_mutex(t_philo *current_philo);
 int				init_philo(t_data *data);
 int				thread_setup(t_data *data);
 
