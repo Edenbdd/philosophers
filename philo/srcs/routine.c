@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:53:49 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 13:11:25 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:22:15 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	even_routine(t_philo *curr)
 /*Main routine function*/
 void	*routine(void *current_philo)
 {
-	t_philo *curr;
-	
+	t_philo	*curr;
+
 	curr = (t_philo *)current_philo;
 	if (curr->number_of_philo == 1)
 		lonely_death(curr);

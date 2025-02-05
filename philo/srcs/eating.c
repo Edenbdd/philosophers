@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 12:50:56 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 12:54:54 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:29:25 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	picking_forks(t_philo *curr, int right_fork_id, int left_fork_id)
 			return (1);
 		}
 		pthread_mutex_lock(&curr->m_forks[right_fork_id]);
-    	if (print_formatter("has taken a fork", curr))
+		if (print_formatter("has taken a fork", curr))
 		{
 			pthread_mutex_unlock(&curr->m_forks[right_fork_id]);
 			pthread_mutex_unlock(&curr->m_forks[left_fork_id]);
@@ -59,7 +59,7 @@ int	picking_forks(t_philo *curr, int right_fork_id, int left_fork_id)
 }
 
 /*Main function handling eating*/
-int		eating(t_philo *curr)
+int	eating(t_philo *curr)
 {
 	int	right_fork_id;
 	int	left_fork_id;

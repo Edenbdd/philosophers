@@ -6,12 +6,13 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:56:52 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/04 10:29:05 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:21:55 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*Check that the char is a space*/
 int	is_space(char c)
 {
 	if (c == 32 || (c >= 9 && c <= 13))
@@ -19,21 +20,23 @@ int	is_space(char c)
 	return (0);
 }
 
-int only_digit_sign(char *arg)
+/*check that there is only + and digit in the args*/
+int	only_digit_sign(char *arg)
 {
-    int pos;
+	int	pos;
 
-    pos = 0;
-    while (arg[pos])
-    {
-        if ((arg[pos] < '0' || arg[pos] > '9')
-            && arg[pos] != '+' && !is_space(arg[pos]))
-            return (0);
-        pos++;
-    }
-    return (1);
+	pos = 0;
+	while (arg[pos])
+	{
+		if ((arg[pos] < '0' || arg[pos] > '9') && arg[pos] != '+'
+			&& !is_space(arg[pos]))
+			return (0);
+		pos++;
+	}
+	return (1);
 }
 
+/*Like atoi but for long long*/
 long long	ft_atoll(char *str)
 {
 	int			pos;
@@ -47,8 +50,10 @@ long long	ft_atoll(char *str)
 		pos++;
 	if (str[pos] == '+')
 		pos++;
-    while (str[pos] == '0')
-    {    pos++;}
+	while (str[pos] == '0')
+	{
+		pos++;
+	}
 	while (str[pos] && is_space(str[pos]))
 		pos++;
 	while (str[pos] && !is_space(str[pos]))
@@ -60,6 +65,7 @@ long long	ft_atoll(char *str)
 	return (result * sign);
 }
 
+/*Check if int overflow*/
 int	too_big(long long nb)
 {
 	int	half_a;
@@ -74,14 +80,15 @@ int	too_big(long long nb)
 	return (0);
 }
 
-int parsing(char *arg)
+/*Main parsing function*/
+int	parsing(char *arg)
 {
-    long long   lnb;
-    
-    if (!only_digit_sign(arg))
-        return (-1);
-    lnb = ft_atoll(arg);
+	long long	lnb;
+
+	if (!only_digit_sign(arg))
+		return (-1);
+	lnb = ft_atoll(arg);
 	if (too_big(lnb))
-	   	return (-1);
-    return ((int)lnb);
+		return (-1);
+	return ((int)lnb);
 }

@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:56:53 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 12:53:32 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:29:11 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*Gettimeofday but in milliseconds*/
 int	get_exact_time(void)
 {
-	struct timeval time;
+	struct timeval	time;
 
 	if (gettimeofday(&time, NULL))
 		return (-1);
@@ -33,8 +33,8 @@ int	ft_usleep(int time_to_wait, t_philo *curr)
 	time = get_exact_time();
 	while (time < start)
 	{
-			usleep(500);
-			time = get_exact_time();
+		usleep(500);
+		time = get_exact_time();
 	}
 	return (0);
 }
@@ -43,20 +43,22 @@ int	ft_usleep(int time_to_wait, t_philo *curr)
 int	print_formatter(char *str, t_philo *curr)
 {
 	pthread_mutex_lock(curr->m_end);
-    if (!(*curr->end_flag))
-    {
-	    pthread_mutex_unlock(curr->m_end);
-	    pthread_mutex_lock(curr->m_printf);
-        printf("%d %d %s\n", get_exact_time() - curr->birth_time, curr->philo_id, str);
-	    pthread_mutex_unlock(curr->m_printf);
-    }
+	if (!(*curr->end_flag))
+	{
+		pthread_mutex_unlock(curr->m_end);
+		pthread_mutex_lock(curr->m_printf);
+		printf("%d %d %s\n", get_exact_time() - curr->birth_time,
+			curr->philo_id, str);
+		pthread_mutex_unlock(curr->m_printf);
+	}
 	else
 	{
-	    pthread_mutex_unlock(curr->m_end);
+		pthread_mutex_unlock(curr->m_end);
 		return (1);
 	}
-    return (0);
+	return (0);
 }
+
 /*Display error message in case of parsing error*/
 int	wrong_arg_msg(void)
 {
