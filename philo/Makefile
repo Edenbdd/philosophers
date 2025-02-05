@@ -6,7 +6,7 @@
 #    By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/29 15:29:44 by aubertra          #+#    #+#              #
-#    Updated: 2025/02/04 10:58:11 by aubertra         ###   ########.fr        #
+#    Updated: 2025/02/05 12:51:26 by aubertra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ FLAGS = -Wall -Wextra -Werror -g3 -pthread
 NAME = philo
 SRCS =  main.c\
 		parsing.c\
+		eating.c\
 		routine.c\
 		monitor.c\
 		init.c\

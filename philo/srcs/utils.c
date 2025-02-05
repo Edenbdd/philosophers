@@ -6,12 +6,13 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:56:53 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 11:05:34 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:53:32 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*Gettimeofday but in milliseconds*/
 int	get_exact_time(void)
 {
 	struct timeval time;
@@ -21,6 +22,7 @@ int	get_exact_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
+/*Modified usleep for more precision*/
 int	ft_usleep(int time_to_wait, t_philo *curr)
 {
 	int	time;
@@ -37,6 +39,7 @@ int	ft_usleep(int time_to_wait, t_philo *curr)
 	return (0);
 }
 
+/*Display the messages recording the philosophers actions*/
 int	print_formatter(char *str, t_philo *curr)
 {
 	pthread_mutex_lock(curr->m_end);
@@ -54,7 +57,7 @@ int	print_formatter(char *str, t_philo *curr)
 	}
     return (0);
 }
-
+/*Display error message in case of parsing error*/
 int	wrong_arg_msg(void)
 {
 	char	*msg;
@@ -71,4 +74,12 @@ int	wrong_arg_msg(void)
 		len++;
 	write(STDERR_FILENO, msg, len);
 	return (-1);
+}
+
+/*Handle when there is only 1 philo*/
+int	lonely_death(t_philo *curr)
+{
+	print_formatter("has taken a fork", curr);
+	print_formatter("died", curr);
+	return (0);
 }

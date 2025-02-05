@@ -6,25 +6,9 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:27:10 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 11:20:56 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:50:30 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*TESTS TO DELETE BEFORE PUSHING*/
-/*
-    Do not test with more than 200 philosophers.
-    Do not test with time_to_die or time_to_eat or time_to_sleep set to values lower than 60 ms.
-    Test 1 800 200 200. The philosopher should not eat and should die.
-    Test 5 800 200 200. No philosopher should die.
-    Test 5 800 200 200 7. No philosopher should die and the simulation should stop when
-	every philosopher has eaten at least 7 times.
-    Test 4 410 200 200. No philosopher should die.
-    Test 4 310 200 100. One philosopher should die.
-    Test with 2 philosophers and check the different times: a death delayed by more than 10 ms
-	is unacceptable.
-    Test with any values of your choice to verify all the requirements. Ensure philosophers die
-	at the right time, that they don't steal forks, and so forth.
-*/
 
 #ifndef PHILO_H
 
@@ -85,13 +69,16 @@ long long		ft_atoll(char *str);
 int				too_big(long long nb);
 
 /*ROUTINE.C*/
-int				picking_forks(t_philo *curr, int right_fork_id,
-					int left_fork_id);
-int				lonely_death(t_philo *curr);
-int				eating(t_philo *curr);
-int				sleeping(t_philo *curr);
+int				even_routine(t_philo *curr);
+int				uneven_routine(t_philo *curr);
 void			*routine(void *data);
 
+/*EATING.C*/
+int				even_forks(t_philo *curr, int right_fork_id,
+					int left_fork_id);
+int				picking_forks(t_philo *curr, int right_fork_id,
+					int left_fork_id);
+int				eating(t_philo *curr);
 
 /*INIT.C*/
 int				init_data(t_data *data, int argc, char **argv);
@@ -114,5 +101,7 @@ int				get_exact_time(void);
 int				ft_usleep(int time_to_wait, t_philo *curr);
 int				print_formatter(char *str, t_philo *curr);
 int				wrong_arg_msg(void);
+int				lonely_death(t_philo *curr);
+
 
 #endif

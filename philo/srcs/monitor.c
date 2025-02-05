@@ -6,18 +6,17 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:57:43 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 12:29:07 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:56:03 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
+/*Checking if the display must stop because everyone ate enough*/
 int check_meals_eaten(t_data *monitor)
 {
     int     count;
     int     max_reached;
-    int     eating_id;
     t_philo *curr_philo;
 
     count = 0;
@@ -26,7 +25,6 @@ int check_meals_eaten(t_data *monitor)
             && count < monitor->number_of_philo)
     {
         curr_philo = &(monitor->philo[count]);
-        eating_id = curr_philo->philo_id -1;
 	    pthread_mutex_lock(curr_philo->m_eating);
         if (curr_philo->meals_eaten >= monitor->max_nb_of_meals)
         {    max_reached++;}
@@ -36,7 +34,6 @@ int check_meals_eaten(t_data *monitor)
     if (count  != 0 && max_reached == count)
     {
         pthread_mutex_lock(monitor->m_end);
-        dprintf(2, RED_TEXT "finish\n" RESET_TEXT);
         monitor->end_flag = 1;
         pthread_mutex_unlock(monitor->m_end);
         return (1);
@@ -44,7 +41,7 @@ int check_meals_eaten(t_data *monitor)
     return (0);
 }
 
-
+/*Checking if philo died because they couldn't eat*/
 int check_death(t_data *monitor)
 {
     int     count;
@@ -53,7 +50,7 @@ int check_death(t_data *monitor)
     count  = 0;
     while (count  < monitor->number_of_philo)
     {
-        curr_philo = &(monitor->philo[count]); //NEED TO ADD EATING LOCK
+        curr_philo = &(monitor->philo[count]);
 	    pthread_mutex_lock(curr_philo->m_eating);
         if ((get_exact_time() - curr_philo->timestamp_last_meal)
             == monitor->time_to_die)
@@ -71,7 +68,7 @@ int check_death(t_data *monitor)
     return (0);
 }
 
-
+/*Main monitoring function*/
 void	*monitoring(void *data)
 {
 	t_data  *monitor;
