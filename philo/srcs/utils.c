@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:56:53 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 13:29:11 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:52:33 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,12 @@ int	print_formatter(char *str, t_philo *curr)
 	pthread_mutex_lock(curr->m_end);
 	if (!(*curr->end_flag))
 	{
-		pthread_mutex_unlock(curr->m_end);
 		pthread_mutex_lock(curr->m_printf);
 		printf("%d %d %s\n", get_exact_time() - curr->birth_time,
 			curr->philo_id, str);
 		pthread_mutex_unlock(curr->m_printf);
 	}
-	else
-	{
-		pthread_mutex_unlock(curr->m_end);
-		return (1);
-	}
+	pthread_mutex_unlock(curr->m_end);
 	return (0);
 }
 
