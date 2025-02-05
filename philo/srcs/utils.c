@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:56:53 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 14:52:33 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:05:51 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	ft_usleep(int time_to_wait, t_philo *curr)
 	int	start;
 
 	(void)curr;
+	if (!time_to_wait)
+		return (0);
 	start = get_exact_time() + time_to_wait;
 	time = get_exact_time();
 	while (time < start)
