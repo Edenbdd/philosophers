@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:56:53 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 15:05:51 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:37:35 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	wrong_arg_msg(void)
 	int		len;
 
 	msg = "Wrong arguments.\nExpected input:\n(positive int only)\n\
-			unsigned in number_of_philosophers\n\
+			number_of_philosophers\n\
 			time_to_die\n\
 			time_to_eat\n\
 			time_to_sleep\n\

@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:56:07 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 14:55:15 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:37:14 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	init_data(t_data *data, int argc, char **argv)
 		return (wrong_arg_msg());
 	data->number_of_philo = parsing(argv[1]);
 	if (data->number_of_philo == 0)
-		return (-1);
+		return (wrong_arg_msg());
 	data->time_to_die = parsing(argv[2]);
 	data->time_to_eat = parsing(argv[3]);
 	data->time_to_sleep = parsing(argv[4]);
