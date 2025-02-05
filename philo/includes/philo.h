@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:27:10 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 15:17:48 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:34:11 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 # define PHILO_H
 
-// # define RED_TEXT "\033[31m"
-// # define RESET_TEXT "\033[0m"
+# define RED_TEXT "\033[31m"
+# define RESET_TEXT "\033[0m"
 
 # include <pthread.h>
 # include <stdio.h>
