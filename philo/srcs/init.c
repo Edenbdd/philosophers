@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:56:07 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/04 16:58:08 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:43:06 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	init_philo(t_data *data)
 	while (i < data->number_of_philo)
 	{
 		current_philo = &(data->philo[i]);
-		current_philo->philo = (pthread_t)malloc(sizeof(pthread_t));
 		current_philo->philo_id = i + 1;
 		current_philo->birth_time = get_exact_time();
 		current_philo->timestamp_last_meal = get_exact_time();
@@ -58,6 +57,7 @@ int	init_philo(t_data *data)
 		current_philo->number_of_philo = data->number_of_philo;
 		current_philo->end_flag = &(data->end_flag);
 		current_philo->m_printf = data->m_printf;
+		current_philo->m_end = data->m_end;
 		current_philo->m_forks = data->m_forks;
 		i++;
 	}
@@ -73,7 +73,7 @@ int	philo_generator(t_data *data)
 	{
 		current_philo = &(data->philo[i]);
 		// dprintf(2, "in first EVEN thread_setup i is %d\n", i + 1);
-		if (pthread_create(&(current_philo->philo), NULL, &routine, current_philo))
+		if (pthread_create(&(current_philo->philo_thread), NULL, &routine, current_philo))
 			return (-1);
 		i += 2;
 	}
@@ -82,7 +82,7 @@ int	philo_generator(t_data *data)
 	{
 		current_philo = &(data->philo[i]);
 		// dprintf(2, "in first UNEVEN thread_setup i is %d\n", i + 1);
-		if (pthread_create(&(current_philo->philo), NULL, &routine, current_philo))
+		if (pthread_create(&(current_philo->philo_thread), NULL, &routine, current_philo))
 			return (-1);
 		i += 2;
 	}
@@ -103,7 +103,7 @@ int	thread_setup(t_data *data)
 	{
 		// dprintf(2, "in sec while thread_setup i is %d\n", i + 1);
 		current_philo = &(data->philo[i]);
-		pthread_join(current_philo->philo, NULL);
+		pthread_join(current_philo->philo_thread, NULL);
 		// dprintf(2, "join of %d done\n", i + 1);
 		i++;
 	}
@@ -118,6 +118,11 @@ int	init_mutex(t_data *data)
 {
 	int	i;
 
+	data->m_end = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (!data->m_end)
+		return (-1);
+	if (pthread_mutex_init(data->m_end, NULL))
+		return (-1);
 	data->m_printf = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (!data->m_printf)
 		return (-1);
@@ -129,6 +134,7 @@ int	init_mutex(t_data *data)
 	i = 0;
 	while (i < data->number_of_philo)
 	{
+		// dprintf(STDERR_FILENO, RED_TEXT "fork %d created\n" RESET_TEXT, i);
 		if (pthread_mutex_init(&data->m_forks[i], NULL))
 			return (-1);
 		i++;

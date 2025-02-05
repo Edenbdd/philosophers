@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:27:10 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/04 16:57:27 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:39:01 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_data t_data;
 
 struct	s_philo
 {
-	pthread_t		philo;
+	pthread_t		philo_thread;
 	int				philo_id;
 	int				timestamp_last_meal;
 	int				birth_time;
@@ -56,6 +56,7 @@ struct	s_philo
 	int				meals_eaten;
 	int				*end_flag;
 	pthread_mutex_t	*m_printf;
+	pthread_mutex_t	*m_end;
 	pthread_mutex_t	*m_forks;
 };
 
@@ -70,6 +71,7 @@ struct	s_data
 	int				max_nb_of_meals;
 	int				end_flag;
 	pthread_mutex_t	*m_printf;
+	pthread_mutex_t	*m_end;
 	pthread_mutex_t	*m_forks;
 };
 
@@ -101,6 +103,8 @@ int				destroy_mutex(t_data *data);
 int				free_destroy_all(t_data *data);
 
 /*MONITOR.C aka the butler*/
+int				check_meals_eaten(t_data *monitor);
+int				check_death(t_data *monitor);
 void			*monitoring(void *data);
 
 /*UTILS.C*/
