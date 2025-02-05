@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:56:07 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 10:43:06 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 11:21:53 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	init_philo(t_data *data)
 		current_philo->number_of_philo = data->number_of_philo;
 		current_philo->end_flag = &(data->end_flag);
 		current_philo->m_printf = data->m_printf;
+		current_philo->m_eating = data->m_eating;
 		current_philo->m_end = data->m_end;
 		current_philo->m_forks = data->m_forks;
 		i++;
@@ -127,6 +128,11 @@ int	init_mutex(t_data *data)
 	if (!data->m_printf)
 		return (-1);
 	if (pthread_mutex_init(data->m_printf, NULL))
+		return (-1);
+	data->m_eating = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (!data->m_eating)
+		return (-1);
+	if (pthread_mutex_init(data->m_eating, NULL))
 		return (-1);
 	data->m_forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->number_of_philo);
 		if (!data->m_forks)

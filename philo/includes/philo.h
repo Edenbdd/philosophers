@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:27:10 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 10:39:01 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 11:20:56 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ struct	s_philo
 	int				meals_eaten;
 	int				*end_flag;
 	pthread_mutex_t	*m_printf;
+	pthread_mutex_t	*m_eating;
 	pthread_mutex_t	*m_end;
 	pthread_mutex_t	*m_forks;
 };
@@ -71,6 +72,7 @@ struct	s_data
 	int				max_nb_of_meals;
 	int				end_flag;
 	pthread_mutex_t	*m_printf;
+	pthread_mutex_t	*m_eating;
 	pthread_mutex_t	*m_end;
 	pthread_mutex_t	*m_forks;
 };

@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:53:49 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 11:17:32 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 11:29:37 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ int		eating(t_philo *curr)
 	// dprintf(STDERR_FILENO, RED_TEXT "for philo %d left fork is %d\n" RESET_TEXT, curr->philo_id, left_fork_id);
 	if (picking_forks(curr, right_fork_id, left_fork_id))
 		return (1);
+	pthread_mutex_lock(curr->m_eating);
 	curr->timestamp_last_meal = get_exact_time();
 	curr->meals_eaten++;
+	pthread_mutex_unlock(curr->m_eating);
 	if (print_formatter("is eating", curr))
 	{
 		pthread_mutex_unlock(&curr->m_forks[right_fork_id]);
