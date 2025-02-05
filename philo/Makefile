@@ -6,7 +6,7 @@
 #    By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/29 15:29:44 by aubertra          #+#    #+#              #
-#    Updated: 2025/02/05 12:51:26 by aubertra         ###   ########.fr        #
+#    Updated: 2025/02/05 14:55:01 by aubertra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS =  main.c\
 		init.c\
 		free.c\
 		utils.c\
+		threads.c\
 
 OBJS = $(addprefix objs/,$(SRCS:.c=.o))
 

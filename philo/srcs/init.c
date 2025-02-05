@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:56:07 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 13:28:08 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:55:15 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	init_data(t_data *data, int argc, char **argv)
 		return (wrong_arg_msg());
 	data->end_flag = 0;
 	data->philo = (t_philo *)malloc(sizeof(t_philo) * data->number_of_philo);
-	if (data->philo || init_mutex(data))
+	if (!data->philo || init_mutex(data))
 		return (-1);
 	return (0);
 }
@@ -91,7 +91,7 @@ int	init_mutex(t_data *data)
 {
 	int	i;
 
-	if (alloc_mutex)
+	if (alloc_mutex(data))
 		return (-1);
 	if (pthread_mutex_init(data->m_end, NULL))
 		return (-1);

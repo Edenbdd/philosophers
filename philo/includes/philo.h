@@ -6,7 +6,7 @@
 /*   By: aubertra <aubertra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:27:10 by aubertra          #+#    #+#             */
-/*   Updated: 2025/02/05 12:50:30 by aubertra         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:54:48 by aubertra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ int				eating(t_philo *curr);
 int				init_data(t_data *data, int argc, char **argv);
 int				init_mutex(t_data *data);
 int				init_philo(t_data *data);
+int				alloc_mutex(t_data *data);
+
+/*THREADS.C*/
 int				philo_generator(t_data *data);
 int				thread_setup(t_data *data);
 
